@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+require_relative 'lib/ruby_gem_name/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = 'ruby_gem_name'
+  spec.version       = RubyGemName::VERSION
+  spec.authors       = ['FirstName SecondName']
+  spec.email         = %w[admin@on-strum.org]
+  spec.summary       = %(ruby_gem_name)
+  spec.description   = %(ruby_gem_name description)
+  spec.homepage      = 'https://github.com/on-strum/ruby-gem'
+  spec.license       = 'MIT'
+
+  spec.required_ruby_version = '>= 2.5.0'
+  spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.require_paths = %w[lib]
+
+  spec.add_development_dependency 'bundler-audit', '~> 0.9.1'
+  spec.add_development_dependency 'fasterer', '~> 0.10.0'
+  spec.add_development_dependency 'pry-byebug', '~> 3.10', '>= 3.10.1'
+  spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
+  spec.add_development_dependency 'reek', '~> 6.1', '>= 6.1.4'
+  spec.add_development_dependency 'rspec', '~> 3.12'
+  spec.add_development_dependency 'rubocop', '~> 1.48'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.16'
+  spec.add_development_dependency 'rubocop-rspec', '~> 2.19'
+  spec.add_development_dependency 'simplecov', '~> 0.22.0'
+end
