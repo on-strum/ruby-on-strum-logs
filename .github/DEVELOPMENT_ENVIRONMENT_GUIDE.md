@@ -2,25 +2,25 @@
 
 ## Preparing
 
-Clone `ruby_gem_name` repository:
+Clone `ruby-on-strum-logs` repository:
 
 ```bash
-git clone https://github.com/on-strum/ruby-gem-name.git
+git clone https://github.com/on-strum/ruby-on-strum-logs.git
 cd  ruby-gem
 ```
 
 Configure latest Ruby environment:
 
 ```bash
-echo 'ruby-3.1.2' > .ruby-version
-cp .circleci/gemspec_latest ruby_gem_name.gemspec
+echo 'ruby-3.2.0' > .ruby-version
+cp .circleci/gemspec_latest on_strum-logs.gemspec
 ```
 
 ## Commiting
 
-Commit your changes excluding `.ruby-version`, `ruby_gem_name.gemspec`
+Commit your changes excluding `.ruby-version`, `on_strum-logs.gemspec`
 
 ```bash
-git add . ':!.ruby-version' ':!ruby_gem_name.gemspec'
-git commit -m 'Your new awesome ruby_gem_name feature'
+git add . ':!.ruby-version' ':!on_strum-logs.gemspec'
+git commit -m 'Your new awesome on_strum-logs feature'
 ```
