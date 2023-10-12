@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
-require_relative 'lib/ruby_gem_name/version'
+require_relative 'lib/on_strum/logs/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ruby_gem_name'
-  spec.version       = RubyGemName::VERSION
-  spec.authors       = ['FirstName SecondName']
+  spec.name          = 'on_strum-logs'
+  spec.version       = OnStrum::Logs::VERSION
+  spec.authors       = ['Vladislav Trotsenko']
   spec.email         = %w[admin@on-strum.org]
-  spec.summary       = %(ruby_gem_name)
-  spec.description   = %(ruby_gem_name description)
-  spec.homepage      = 'https://github.com/on-strum/ruby-gem'
+  spec.summary       = %(on_strum-logs)
+  spec.description   = %(Simple structured logger)
+  spec.homepage      = 'https://github.com/on-strum/ruby-on-strum-logs'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 2.5.0'
   spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = %w[lib]
 
+  spec.add_development_dependency 'ffaker'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
 end

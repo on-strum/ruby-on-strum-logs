@@ -3,12 +3,12 @@
 version: 2.1
 
 defaults: &defaults
-  working_directory: ~/ruby-gem-name
+  working_directory: ~/ruby-on-strum-logs
   docker:
     - image: cimg/ruby:<< parameters.ruby-version >>
 
 orbs:
-  ruby: circleci/ruby@2.0.0
+  ruby: circleci/ruby@2.1.0
 
 references:
   bundle_install: &bundle_install
@@ -44,12 +44,12 @@ references:
   use_latest_gemspec: &use_latest_gemspec
     run:
       name: Using latest gemspec
-      command: cp .circleci/gemspecs/latest ruby_gem_name.gemspec
+      command: cp .circleci/gemspecs/latest on_strum-logs.gemspec
 
   use_compatible_gemspec: &use_compatible_gemspec
     run:
       name: Using compatible gemspec
-      command: cp .circleci/gemspecs/compatible ruby_gem_name.gemspec
+      command: cp .circleci/gemspecs/compatible on_strum-logs.gemspec
 
 jobs:
   linters-ruby:
@@ -115,7 +115,7 @@ jobs:
 
       - store_artifacts:
           name: Saving Simplecov coverage artifacts
-          path: ~/ruby-gem-name/coverage
+          path: ~/ruby-on-strum-logs/coverage
           destination: coverage
 
       - deploy:
@@ -170,7 +170,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "SO:ME:FIN:G:ER:PR:IN:T"
+            - "24:e5:37:48:52:f7:06:86:5c:0c:6b:b1:77:9e:ae:32"
 
       - run:
           name: Publishing new release
