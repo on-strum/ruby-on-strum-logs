@@ -22,6 +22,19 @@ RSpec.describe OnStrum::Logs::RspecHelper::ContextGenerator, type: :helper do
     end
   end
 
+  describe '#random_log_level' do
+    it 'returns random log level' do
+      expect(random_log_level).to be_an_instance_of(::String)
+    end
+  end
+
+  describe '#random_datetime' do
+    it 'returns random datetime' do
+      expect(::FFaker::Time).to receive(:datetime).and_call_original
+      expect(random_datetime).to be_an_instance_of(::DateTime)
+    end
+  end
+
   describe '#create_standard_error' do
     let(:message) { random_message }
 

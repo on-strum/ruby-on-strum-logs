@@ -26,6 +26,8 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files -z`.split("\x0").select { |f| f.match(%r{^(bin|lib)/|.ruby-version|on_strum-logs.gemspec|LICENSE}) }
   spec.require_paths = %w[lib]
 
+  spec.add_runtime_dependency 'amazing_print', '~> 1.5'
+
   spec.add_development_dependency 'ffaker', '~> 2.21'
   spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
   spec.add_development_dependency 'rspec', '~> 3.12'
