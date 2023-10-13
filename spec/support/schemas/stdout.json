@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+      "level",
+      "time",
+      "message",
+      "context",
+      "service_name",
+      "service_version"
+  ],
+  "additionalProperties": false,
+  "properties": {
+      "level": {
+          "type": "string",
+          "default": "",
+          "title": "The level Schema",
+          "examples": [
+              "INFO"
+          ]
+      },
+      "time": {
+          "type": "string",
+          "default": "",
+          "title": "The time Schema",
+          "examples": [
+              "2023-10-15T11:33:16.015+02:00"
+          ]
+      },
+      "message": {
+          "type": "string",
+          "default": "",
+          "title": "The message Schema",
+          "examples": [
+              "Commodi vero est amet aspernatur itaque ut tempora."
+          ]
+      },
+      "context": {
+          "type": ["object", "null"],
+          "default": "null",
+          "title": "The context Schema",
+          "additionalProperties": true,
+          "examples": [{
+              "attribute": "Tempore adipisci explicabo fugit laboriosam."
+          }]
+      },
+      "service_name": {
+          "type": "string",
+          "default": "",
+          "title": "The service_name Schema",
+          "examples": [
+              "sachikosook_norberg"
+          ]
+      },
+      "service_version": {
+          "type": "string",
+          "default": "",
+          "title": "The service_version Schema",
+          "examples": [
+              "0.1.0"
+          ]
+      }
+  },
+  "examples": [{
+      "level": "INFO",
+      "time": "2023-10-15T11:33:16.015+02:00",
+      "message": "Commodi vero est amet aspernatur itaque ut tempora.",
+      "context": {
+          "attribute": "Tempore adipisci explicabo fugit laboriosam."
+      },
+      "service_name": "sachikosook_norberg",
+      "service_version": "0.1.0"
+  }]
+}

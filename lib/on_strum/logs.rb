@@ -21,6 +21,12 @@ module OnStrum
       def reset_configuration!
         @configuration = nil
       end
+
+      OnStrum::Logs::Logger::Default::LOG_LEVELS.each do |method|
+        define_method(method) do |*arg|
+          OnStrum::Logs::Logger::Default.instance.public_send(method, *arg)
+        end
+      end
     end
   end
 end

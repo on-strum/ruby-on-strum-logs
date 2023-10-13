@@ -5,7 +5,7 @@ module OnStrum
     module Error
       require_relative 'error/argument_type'
       require_relative 'error/configuration'
-      # require_relative 'error/logger'
+      require_relative 'error/logger'
     end
 
     module Formatter
@@ -17,10 +17,10 @@ module OnStrum
     require_relative 'version'
     require_relative 'configuration'
 
-    # module Logger
-    #   require_relative 'logger/base'
-    #   require_relative 'logger/default'
-    # end
+    module Logger
+      require_relative 'logger/base'
+      require_relative 'logger/default'
+    end
 
     require_relative '../logs'
   end

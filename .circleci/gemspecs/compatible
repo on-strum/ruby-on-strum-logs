@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'amazing_print', '~> 1.5'
 
   spec.add_development_dependency 'ffaker'
+  spec.add_development_dependency 'json_matchers'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
 end

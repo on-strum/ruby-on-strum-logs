@@ -22,19 +22,6 @@ RSpec.describe OnStrum::Logs::RspecHelper::ContextGenerator, type: :helper do
     end
   end
 
-  describe '#random_log_level' do
-    it 'returns random log level' do
-      expect(random_log_level).to be_an_instance_of(::String)
-    end
-  end
-
-  describe '#random_datetime' do
-    it 'returns random datetime' do
-      expect(::FFaker::Time).to receive(:datetime).and_call_original
-      expect(random_datetime).to be_an_instance_of(::DateTime)
-    end
-  end
-
   describe '#create_standard_error' do
     let(:message) { random_message }
 
@@ -55,6 +42,33 @@ RSpec.describe OnStrum::Logs::RspecHelper::ContextGenerator, type: :helper do
         expect(exception_instance).to be_an_instance_of(::StandardError)
         expect(exception_instance.message).to eq(message)
       end
+    end
+  end
+
+  describe '#random_log_level' do
+    it 'returns random log level' do
+      expect(random_log_level).to be_an_instance_of(::String)
+    end
+  end
+
+  describe '#random_datetime' do
+    it 'returns random datetime' do
+      expect(::FFaker::Time).to receive(:datetime).and_call_original
+      expect(random_datetime).to be_an_instance_of(::DateTime)
+    end
+  end
+
+  describe '#string_with_new_line' do
+    it 'returns string with new line at the end' do
+      expect(string_with_new_line('a')).to eq("a\n")
+    end
+  end
+
+  describe '#use_formatter' do
+    it 'returns target formatter class' do
+      expect(use_formatter(:json)).to eq(OnStrum::Logs::Formatter::Json)
+      expect(use_formatter(:detailed)).to eq(OnStrum::Logs::Formatter::Detailed)
+      expect(use_formatter(:custom)).to eq(::Class)
     end
   end
 end
