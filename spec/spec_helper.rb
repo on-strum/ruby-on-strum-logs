@@ -18,6 +18,10 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
   config.disable_monkey_patching!
   config.order = :random
+  config.before { OnStrum::Logs.reset_configuration! }
+
+  config.include OnStrum::Logs::RspecHelper::ContextGenerator
+  config.include OnStrum::Logs::RspecHelper::Configuration
 
   ::Kernel.srand(config.seed)
 end

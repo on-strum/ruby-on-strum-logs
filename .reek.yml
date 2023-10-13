@@ -3,3 +3,15 @@
 detectors:
   IrresponsibleModule:
     enabled: false
+
+  ControlParameter:
+    exclude:
+      - OnStrum::Logs::Configuration#raise_unless
+      - OnStrum::Logs::Configuration#valid_argument_type?
+
+  UtilityFunction:
+    exclude:
+      - OnStrum::Logs::Configuration#valid_argument_type?
+
+exclude_paths:
+  - spec/support/helpers

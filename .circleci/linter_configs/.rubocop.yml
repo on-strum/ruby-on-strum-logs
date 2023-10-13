@@ -83,6 +83,11 @@ Layout/ClassStructure:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
+# Lint ------------------------------------------------------------------------
+
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: false
+
 # Gemspec ---------------------------------------------------------------------
 
 Gemspec/RequireMFA:
