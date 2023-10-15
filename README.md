@@ -15,7 +15,14 @@ Full description of this gem here...
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Configuring](#configuring)
+  - [Custom formatter](#custom-formatter)
+  - [Resetting configuration](#resetting-configuration)
 - [Usage](#usage)
+  - [Hash](#hash)
+  - [Exception](#exception)
+  - [Other](#other)
+  - [Debug mode](#debug-mode)
 - [Contributing](#contributing)
 - [License](#license)
 - [Code of Conduct](#code-of-conduct)
@@ -25,7 +32,11 @@ Full description of this gem here...
 
 ## Features
 
-The list of features here...
+- Structured `JSON` log
+- Built-in detailed (debug) formatter
+- Ability to configure required parameters
+- Ability to configure formatters
+- Ability to serialize an exceptions into structured log
 
 ## Requirements
 
@@ -51,9 +62,161 @@ Or install it yourself as:
 gem install on_strum-logs
 ```
 
+## Configuring
+
+To start working with this gem, you must configure it first as in the example below:
+
+```ruby
+# config/initializers/on_strum_logs.rb
+
+require 'on-strum/logs'
+
+OnStrum::Logs.configure do |config|
+  # Required parameter. The current application version.
+  config.application_version = '1.42.0'
+
+  # Required parameter. The current application name.
+  config.application_name = 'My Great Application'
+
+  # Optional parameter. The colorized structured log in STDOUT. It could be useful
+  # for debug mode.
+  config.detailed_formatter = true
+
+  # Optional parameter. You can use your custom formatter insted of built-in.
+  # Please note, using this option will override using detailed_formatter option.
+  config.custom_formatter = YouCustomFormatter
+end
+```
+
+### Custom formatter
+
+Example of defining custom formatter:
+
+```ruby
+YouCustomFormatter = Class.new do
+  def self.call(**log_data)
+    log_data
+  end
+end
+```
+
+### Resetting configuration
+
+To reset current configuration you can use built-in interface:
+
+```ruby
+OnStrum::Logs.reset_configuration!
+```
+
 ## Usage
 
-Use cases of this gem here...
+In `OnStrum::Logs` supports 3 standard log levels: `INFO`, `ERROR` and `DEBUG`.
+
+```ruby
+OnStrum::Logs.info(object)
+OnStrum::Logs.error(object)
+OnStrum::Logs.debug(object)
+```
+
+As methods argument you can use instance of `Hash`, `Exception` or any other class (it will be stringified).
+
+### Hash
+
+Please note, when you uses `Hash`, `:message` is required key. Otherwise you will get an exception.
+
+```ruby
+OnStrum::Logs.info(message: 'My Message', some_attribute: 'some attribute')
+```
+
+```json
+{
+  "level":"INFO",
+  "time":"2023-10-15T13:15:21.129+02:00",
+  "message":"My Message",
+  "context":{
+    "some_attribute":"some attribute"
+  },
+  "service_name":"My Great Application",
+  "service_version":"1.42.0"
+}
+```
+
+### Exception
+
+```ruby
+OnStrum::Logs.error(StandardError.new('error message'))
+```
+
+```json
+{
+  "level":"ERROR",
+  "time":"2023-10-15T13:32:15.851+02:00",
+  "message":"Exception: StandardError",
+  "context":{
+    "message":"error message",
+    "stack_trace":null
+  },
+  "service_name":"My Great Application",
+  "service_version":"1.42.0"
+}
+```
+
+### Other
+
+```ruby
+OnStrum::Logs.debug(42)
+```
+
+```json
+{
+  "level":"DEBUG",
+  "time":"2023-10-15T13:33:51.889+02:00",
+  "message":"42",
+  "context":null,
+  "service_name":"My Great Application",
+  "service_version":"1.42.0"
+}
+```
+
+### Debug mode
+
+For view detailed colorized logs you can use configuration option `detailed_formatter = true`:
+
+```ruby
+require 'on-strum/logs'
+
+OnStrum::Logs.configure do |config|
+  config.application_version = '1.42.0'
+  config.application_name = 'My Great Application'
+  config.detailed_formatter = true
+end
+
+OnStrum::Logs.info(
+  message: 'My Message',
+  attribute_1: 'attribute 1',
+  attribute_2: {
+    a: 42,
+    b: Class.new
+  }
+)
+```
+
+```json
+{
+            :level => "INFO",
+              :time => 2023-10-15 14:02:11.441533 +0200,
+          :message => "My Message",
+          :context => {
+      :attribute_1 => "attribute 1",
+      :attribute_2 => {
+          :a => 42,
+          :b => #<Class:0x0000000103763528> < Object
+      }
+  },
+      :service_name => "My Great Application",
+  :service_version => "1.42.0"
+}
+```
 
 ## Contributing
 
