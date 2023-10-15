@@ -56,6 +56,9 @@ Style/ParallelAssignment:
 Style/RescueStandardError:
   Enabled: false
 
+Style/RedundantConstantBase:
+  Enabled: false
+
 # Layout ----------------------------------------------------------------------
 
 Layout/LineLength:
@@ -80,9 +83,17 @@ Layout/ClassStructure:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
+# Lint ------------------------------------------------------------------------
+
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: false
+
 # Gemspec ---------------------------------------------------------------------
 
 Gemspec/RequireMFA:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
   Enabled: false
 
 # Performance -----------------------------------------------------------------

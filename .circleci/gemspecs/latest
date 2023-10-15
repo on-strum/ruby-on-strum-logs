@@ -1,29 +1,33 @@
 # frozen_string_literal: true
 
-require_relative 'lib/ruby_gem_name/version'
+require_relative 'lib/on_strum/logs/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ruby_gem_name'
-  spec.version       = RubyGemName::VERSION
-  spec.authors       = ['FirstName SecondName']
+  spec.name          = 'on_strum-logs'
+  spec.version       = OnStrum::Logs::VERSION
+  spec.authors       = ['Vladislav Trotsenko']
   spec.email         = %w[admin@on-strum.org]
-  spec.summary       = %(ruby_gem_name)
-  spec.description   = %(ruby_gem_name description)
-  spec.homepage      = 'https://github.com/on-strum/ruby-gem'
+  spec.summary       = %(on_strum-logs)
+  spec.description   = %(Simple structured logger)
+  spec.homepage      = 'https://github.com/on-strum/ruby-on-strum-logs'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 2.5.0'
   spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = %w[lib]
 
+  spec.add_runtime_dependency 'amazing_print', '~> 1.5'
+
   spec.add_development_dependency 'bundler-audit', '~> 0.9.1'
-  spec.add_development_dependency 'fasterer', '~> 0.10.0'
+  spec.add_development_dependency 'fasterer', '~> 0.10.1'
+  spec.add_development_dependency 'ffaker', '~> 2.23'
+  spec.add_development_dependency 'json_matchers', '~> 0.11.1'
   spec.add_development_dependency 'pry-byebug', '~> 3.10', '>= 3.10.1'
   spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
   spec.add_development_dependency 'reek', '~> 6.1', '>= 6.1.4'
   spec.add_development_dependency 'rspec', '~> 3.12'
-  spec.add_development_dependency 'rubocop', '~> 1.48'
-  spec.add_development_dependency 'rubocop-performance', '~> 1.16'
-  spec.add_development_dependency 'rubocop-rspec', '~> 2.19'
+  spec.add_development_dependency 'rubocop', '~> 1.57'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.19', '>= 1.19.1'
+  spec.add_development_dependency 'rubocop-rspec', '~> 2.24', '>= 2.24.1'
   spec.add_development_dependency 'simplecov', '~> 0.22.0'
 end
