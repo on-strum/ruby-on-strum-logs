@@ -12,6 +12,15 @@ detectors:
   UtilityFunction:
     exclude:
       - OnStrum::Logs::Configuration#valid_argument_type?
+      - OnStrum::Logs::Logger::Default#configuration
+
+  FeatureEnvy:
+    exclude:
+      - OnStrum::Logs::Logger::Default#hash_normalizer
+
+  Attribute:
+    exclude:
+      - OnStrum::Logs::Configuration#detailed_formatter
 
 exclude_paths:
   - spec/support/helpers

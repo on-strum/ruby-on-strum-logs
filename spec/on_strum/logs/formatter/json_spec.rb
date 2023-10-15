@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe OnStrum::Logs::Formatter::Json do
-  describe 'inheritance' do
-    it { expect(described_class).to be < OnStrum::Logs::Formatter::Base }
-  end
+  it { expect(described_class).to be < OnStrum::Logs::Formatter::Base }
 
   describe '.call' do
     subject(:formatter) { described_class.call(**log_data) }

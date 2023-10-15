@@ -31,6 +31,18 @@ module OnStrum
         def string_with_new_line(string)
           "#{string}\n"
         end
+
+        def stub_time(stubbed_time)
+          allow(::Time).to receive(:now).and_return(stubbed_time)
+        end
+
+        def use_formatter(type)
+          {
+            json: OnStrum::Logs::Formatter::Json,
+            detailed: OnStrum::Logs::Formatter::Detailed,
+            custom: ::Class
+          }[type]
+        end
       end
     end
   end
