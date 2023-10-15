@@ -130,14 +130,14 @@ OnStrum::Logs.info(message: 'My Message', some_attribute: 'some attribute')
 
 ```json
 {
-  "level":"INFO",
-  "time":"2023-10-15T13:15:21.129+02:00",
-  "message":"My Message",
-  "context":{
-    "some_attribute":"some attribute"
+  "level": "INFO",
+  "time":" 2023-10-15T13:15:21.129+02:00",
+  "message": "My Message",
+  "context": {
+    "some_attribute": "some attribute"
   },
-  "service_name":"My Great Application",
-  "service_version":"1.42.0"
+  "service_name": "My Great Application",
+  "service_version": "1.42.0"
 }
 ```
 
@@ -149,15 +149,15 @@ OnStrum::Logs.error(StandardError.new('error message'))
 
 ```json
 {
-  "level":"ERROR",
-  "time":"2023-10-15T13:32:15.851+02:00",
-  "message":"Exception: StandardError",
-  "context":{
-    "message":"error message",
-    "stack_trace":null
+  "level": "ERROR",
+  "time": "2023-10-15T13:32:15.851+02:00",
+  "message": "Exception: StandardError",
+  "context": {
+    "message": "error message",
+    "stack_trace": null
   },
-  "service_name":"My Great Application",
-  "service_version":"1.42.0"
+  "service_name": "My Great Application",
+  "service_version": "1.42.0"
 }
 ```
 
@@ -169,12 +169,12 @@ OnStrum::Logs.debug(42)
 
 ```json
 {
-  "level":"DEBUG",
-  "time":"2023-10-15T13:33:51.889+02:00",
-  "message":"42",
-  "context":null,
-  "service_name":"My Great Application",
-  "service_version":"1.42.0"
+  "level": "DEBUG",
+  "time": "2023-10-15T13:33:51.889+02:00",
+  "message": "42",
+  "context": null,
+  "service_name": "My Great Application",
+  "service_version": "1.42.0"
 }
 ```
 
@@ -201,10 +201,10 @@ OnStrum::Logs.info(
 )
 ```
 
-```json
+```bash
 {
             :level => "INFO",
-              :time => 2023-10-15 14:02:11.441533 +0200,
+            :time  => 2023-10-15 14:02:11.441533 +0200,
           :message => "My Message",
           :context => {
       :attribute_1 => "attribute 1",
@@ -214,7 +214,7 @@ OnStrum::Logs.info(
       }
   },
       :service_name => "My Great Application",
-  :service_version => "1.42.0"
+   :service_version => "1.42.0"
 }
 ```
 
