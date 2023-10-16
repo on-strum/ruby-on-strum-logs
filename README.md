@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/github/license/on-strum/ruby-on-strum-logs)](LICENSE.txt)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-Full description of this gem here...
+Simple configurable structured logger with `JSON` formatter out of the box.
 
 ## Table of Contents
 
@@ -84,7 +84,7 @@ OnStrum::Logs.configure do |config|
 
   # Optional parameter. You can use your custom formatter insted of built-in.
   # Please note, using this option will override using detailed_formatter option.
-  config.custom_formatter = YouCustomFormatter
+  config.custom_formatter = YourCustomFormatter
 end
 ```
 
@@ -93,7 +93,7 @@ end
 Example of defining custom formatter:
 
 ```ruby
-YouCustomFormatter = Class.new do
+YourCustomFormatter = Class.new do
   def self.call(**log_data)
     log_data
   end
