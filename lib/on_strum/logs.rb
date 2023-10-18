@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'logs/core'
+
 module OnStrum
   module Logs
     class << self
