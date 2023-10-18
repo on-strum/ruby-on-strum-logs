@@ -21,7 +21,5 @@ module OnStrum
       require_relative 'logger/base'
       require_relative 'logger/default'
     end
-
-    require_relative '../logs'
   end
 end
