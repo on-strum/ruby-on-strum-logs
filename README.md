@@ -69,7 +69,7 @@ To start working with this gem, you must configure it first as in the example be
 ```ruby
 # config/initializers/on_strum_logs.rb
 
-require 'on-strum/logs'
+require 'on_strum/logs'
 
 OnStrum::Logs.configure do |config|
   # Required parameter. The current application version.
@@ -183,7 +183,7 @@ OnStrum::Logs.debug(42)
 For view detailed colorized logs you can use configuration option `detailed_formatter = true`:
 
 ```ruby
-require 'on-strum/logs'
+require 'on_strum/logs'
 
 OnStrum::Logs.configure do |config|
   config.application_version = '1.42.0'
