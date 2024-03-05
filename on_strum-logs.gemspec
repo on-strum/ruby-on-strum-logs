@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Vladislav Trotsenko']
   spec.email       = %w[admin@on-strum.org]
 
-  spec.summary     = %(on_strum-logs)
-  spec.description = %(Simple structured logger)
+  spec.summary     = %(Simple structured logger)
+  spec.description = %(Simple structured logger.)
 
   spec.homepage    = 'https://github.com/on-strum/ruby-on-strum-logs'
   spec.license     = 'MIT'
@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'ffaker', '~> 2.21'
   spec.add_development_dependency 'json_matchers', '~> 0.11.1'
-  spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
-  spec.add_development_dependency 'rspec', '~> 3.12'
+  spec.add_development_dependency 'rake', '~> 13.1'
+  spec.add_development_dependency 'rspec', '~> 3.13'
 end
