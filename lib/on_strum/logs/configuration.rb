@@ -14,7 +14,7 @@ module OnStrum
       end
 
       OnStrum::Logs::Configuration::SETTERS.each do |method|
-        define_method("#{method}=") do |argument|
+        define_method(:"#{method}=") do |argument|
           raise_unless(argument, __method__, valid_argument_type?(method, argument))
           instance_variable_set(:"@#{method}", argument)
         end
