@@ -13,6 +13,7 @@ detectors:
     exclude:
       - OnStrum::Logs::Configuration#valid_argument_type?
       - OnStrum::Logs::Logger::Default#configuration
+      - OnStrum::Logs::Configuration#instance_initializer
 
   FeatureEnvy:
     exclude:
@@ -21,6 +22,10 @@ detectors:
   Attribute:
     exclude:
       - OnStrum::Logs::Configuration#detailed_formatter
+
+  TooManyStatements:
+    exclude:
+      - OnStrum::Logs::Logger::Default#hash_normalizer
 
 exclude_paths:
   - spec/support/helpers

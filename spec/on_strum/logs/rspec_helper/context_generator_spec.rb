@@ -22,6 +22,14 @@ RSpec.describe OnStrum::Logs::RspecHelper::ContextGenerator, type: :helper do
     end
   end
 
+  describe '#random_field_name' do
+    it 'returns random field name' do
+      random_field_name
+      expect(::FFaker::Lorem).to receive(:word).and_call_original
+      expect(random_field_name).to be_an_instance_of(::Symbol)
+    end
+  end
+
   describe '#create_standard_error' do
     let(:message) { random_message }
 
