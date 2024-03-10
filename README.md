@@ -34,7 +34,8 @@ Simple configurable structured logger with `JSON` formatter out of the box.
 
 - Structured `JSON` log
 - Built-in detailed (debug) formatter
-- Ability to configure required parameters
+- Ability to configure builtin attribute key names
+- Ability to configure required attributes
 - Ability to configure formatters
 - Ability to serialize an exceptions into structured log
 
@@ -85,6 +86,30 @@ OnStrum::Logs.configure do |config|
   # Optional parameter. You can use your custom formatter insted of built-in.
   # Please note, using this option will override using detailed_formatter option.
   config.custom_formatter = YourCustomFormatter
+
+  # Optional parameter. You can override log level builtin attribute key.
+  # It is equal to :level by default.
+  config.field_name_level = :log_level
+
+  # Optional parameter. You can override log time builtin attribute key.
+  # It is equal to :time by default.
+  config.field_name_time = :log_time
+
+  # Optional parameter. You can override log message builtin attribute key.
+  # It is equal to :message by default.
+  config.field_name_message = :log_message
+
+  # Optional parameter. You can override log context builtin attribute key.
+  # It is equal to :context by default.
+  config.field_name_context = :log_context
+
+  # Optional parameter. You can override log exception message builtin attribute key.
+  # It is equal to :message by default.
+  config.field_name_exception_message = :log_exception_message
+
+  # Optional parameter. You can override log exception stack trace builtin attribute key.
+  # It is equal to :stack_trace by default.
+  config.field_name_exception_stack_trace = :log_exception_stack_trace
 end
 ```
 

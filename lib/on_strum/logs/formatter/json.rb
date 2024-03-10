@@ -6,10 +6,11 @@ module OnStrum
       class Json < Base
         require 'json'
 
-        def self.call(time:, **log_data)
+        def self.call(**log_data)
+          time_key = OnStrum::Logs.configuration.field_name_time
           json_log = arrange_attrs(
-            time: time.strftime(OnStrum::Logs::Formatter::Base::DATETIME_FORMAT),
-            **log_data
+            **log_data,
+            time_key => log_data[time_key].strftime(OnStrum::Logs::Formatter::Base::DATETIME_FORMAT)
           ).to_json
 
           "#{json_log}\n"

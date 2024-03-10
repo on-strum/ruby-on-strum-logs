@@ -20,7 +20,10 @@ module OnStrum
 
             # TODO: we need to have ability to process log data before render it to STDOUT/STDERR
             # hash_normalizer(arg); after_callback.call(arg)
-            logger.public_send(method_name, hash_normalizer(arg).merge(level: method_name.to_s.upcase))
+            logger.public_send(
+              method_name,
+              hash_normalizer(arg).merge(configuration.field_name_level => method_name.to_s.upcase)
+            )
           end
         end
 
@@ -35,7 +38,7 @@ module OnStrum
         def formatter
           @formatter ||= proc do |_severity, datetime, _progname, log_data|
             configuration.formatter.call(
-              time: datetime,
+              configuration.field_name_time => datetime,
               service_name: configuration.service_name,
               service_version: configuration.service_version,
               **log_data
@@ -44,20 +47,22 @@ module OnStrum
         end
 
         def hash_normalizer(object)
+          message_key, context_key = configuration.field_name_message, configuration.field_name_context
+
           case object
           when ::Hash
-            raise OnStrum::Logs::Error::Logger unless object.key?(:message)
+            raise OnStrum::Logs::Error::Logger unless object.key?(message_key)
 
-            { message: object.delete(:message), context: (object.empty? ? nil : object) }
+            { message_key => object.delete(message_key), context_key => (object.empty? ? nil : object) }
           when ::Exception
             {
-              message: "Exception: #{object.class}",
-              context: {
-                message: object.message,
-                stack_trace: object.backtrace
+              message_key => "Exception: #{object.class}",
+              context_key => {
+                configuration.field_name_exception_message => object.message,
+                configuration.field_name_exception_stack_trace => object.backtrace
               }
             }
-          else { message: object.to_s, context: nil }
+          else { message_key => object.to_s, context_key => nil }
           end
         end
       end

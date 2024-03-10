@@ -16,6 +16,10 @@ module OnStrum
           FFaker::Lorem.sentence
         end
 
+        def random_field_name
+          FFaker::Lorem.word.to_sym
+        end
+
         def create_standard_error(message = random_message)
           ::StandardError.new(message)
         end
