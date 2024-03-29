@@ -39,8 +39,7 @@ module OnStrum
           @formatter ||= proc do |_severity, datetime, _progname, log_data|
             configuration.formatter.call(
               configuration.field_name_time => datetime,
-              service_name: configuration.service_name,
-              service_version: configuration.service_version,
+              **configuration.root_fields,
               **log_data
             )
           end

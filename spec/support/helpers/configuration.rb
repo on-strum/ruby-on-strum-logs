@@ -17,13 +17,7 @@ module OnStrum
         end
 
         def init_configuration(**args)
-          OnStrum::Logs.configure(
-            &configuration_block(
-              service_name: random_service_name,
-              service_version: random_semver,
-              **args
-            )
-          )
+          OnStrum::Logs.configure(&configuration_block(**args))
         end
 
         def current_configuration

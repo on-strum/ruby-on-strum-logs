@@ -8,9 +8,7 @@
       "level",
       "time",
       "message",
-      "context",
-      "service_name",
-      "service_version"
+      "context"
   ],
   "additionalProperties": false,
   "properties": {
@@ -46,22 +44,6 @@
           "examples": [{
               "attribute": "Tempore adipisci explicabo fugit laboriosam."
           }]
-      },
-      "service_name": {
-          "type": "string",
-          "default": "",
-          "title": "The service_name Schema",
-          "examples": [
-              "sachikosook_norberg"
-          ]
-      },
-      "service_version": {
-          "type": "string",
-          "default": "",
-          "title": "The service_version Schema",
-          "examples": [
-              "0.1.0"
-          ]
       }
   },
   "examples": [{

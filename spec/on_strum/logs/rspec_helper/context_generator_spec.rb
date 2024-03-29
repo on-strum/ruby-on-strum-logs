@@ -24,9 +24,16 @@ RSpec.describe OnStrum::Logs::RspecHelper::ContextGenerator, type: :helper do
 
   describe '#random_field_name' do
     it 'returns random field name' do
-      random_field_name
       expect(::FFaker::Lorem).to receive(:word).and_call_original
       expect(random_field_name).to be_an_instance_of(::Symbol)
+    end
+  end
+
+  describe '#random_root_fields' do
+    it 'returns random root fields' do
+      expect(::FFaker::Lorem).to receive(:word).twice.and_call_original
+      expect(::FFaker::Lorem).to receive(:sentence).twice.and_call_original
+      expect(random_root_fields).to be_an_instance_of(::Hash)
     end
   end
 
