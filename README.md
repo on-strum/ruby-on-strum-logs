@@ -1,4 +1,4 @@
-# `on_strum-logs` - Simple structured logger
+# ![OnStrum::Logs - Simple configurable structured logger with JSON formatter out of the box](https://repository-images.githubusercontent.com/703974267/64869920-5005-490e-9e5d-90b49ba59f25)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/2f4acd0ca4da58ca3b1e/maintainability)](https://codeclimate.com/github/on-strum/ruby-on-strum-logs/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2f4acd0ca4da58ca3b1e/test_coverage)](https://codeclimate.com/github/on-strum/ruby-on-strum-logs/test_coverage)
