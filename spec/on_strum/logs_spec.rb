@@ -3,8 +3,7 @@
 RSpec.describe OnStrum::Logs do
   let(:custom_formatter) { use_formatter(:custom) }
   let(:detailed_formatter) { true }
-  let(:service_name) { random_service_name }
-  let(:service_version) { random_semver }
+  let(:root_fields) { random_root_fields }
   let(:field_name_level) { random_field_name }
   let(:field_name_time) { random_field_name }
   let(:field_name_message) { random_field_name }
@@ -28,8 +27,7 @@ RSpec.describe OnStrum::Logs do
           configuration_block(
             custom_formatter: custom_formatter,
             detailed_formatter: detailed_formatter,
-            service_name: service_name,
-            service_version: service_version,
+            root_fields: root_fields,
             field_name_level: field_name_level,
             field_name_time: field_name_time,
             field_name_message: field_name_message,
@@ -47,25 +45,13 @@ RSpec.describe OnStrum::Logs do
           expect(configuration).to be_an_instance_of(OnStrum::Logs::Configuration)
           expect(configuration.custom_formatter).to eq(custom_formatter)
           expect(configuration.detailed_formatter).to eq(detailed_formatter)
-          expect(configuration.service_name).to eq(service_name)
-          expect(configuration.service_version).to eq(service_version)
+          expect(configuration.root_fields).to eq(root_fields)
           expect(configuration.field_name_level).to eq(field_name_level)
           expect(configuration.field_name_time).to eq(field_name_time)
           expect(configuration.field_name_message).to eq(field_name_message)
           expect(configuration.field_name_context).to eq(field_name_context)
           expect(configuration.field_name_exception_message).to eq(field_name_exception_message)
           expect(configuration.field_name_exception_stack_trace).to eq(field_name_exception_stack_trace)
-        end
-      end
-
-      context 'when configuration is incomplete' do
-        let(:config_block) { configuration_block }
-
-        it 'raises configuration error' do
-          expect { configuration }.to raise_error(
-            OnStrum::Logs::Error::Configuration,
-            'service_name, service_version are required parameters'
-          )
         end
       end
     end
@@ -77,8 +63,7 @@ RSpec.describe OnStrum::Logs do
         &configuration_block(
           custom_formatter: custom_formatter,
           detailed_formatter: detailed_formatter,
-          service_name: service_name,
-          service_version: service_version,
+          root_fields: root_fields,
           field_name_level: field_name_level,
           field_name_time: field_name_time,
           field_name_message: field_name_message,
@@ -103,8 +88,7 @@ RSpec.describe OnStrum::Logs do
       described_class.configure(&configuration_block(
         custom_formatter: custom_formatter,
         detailed_formatter: detailed_formatter,
-        service_name: service_name,
-        service_version: service_version,
+        root_fields: root_fields,
         field_name_level: field_name_level,
         field_name_time: field_name_time,
         field_name_message: field_name_message,
@@ -118,8 +102,7 @@ RSpec.describe OnStrum::Logs do
       expect(configuration).to be_instance_of(OnStrum::Logs::Configuration)
       expect(configuration.custom_formatter).to eq(custom_formatter)
       expect(configuration.detailed_formatter).to eq(detailed_formatter)
-      expect(configuration.service_name).to eq(service_name)
-      expect(configuration.service_version).to eq(service_version)
+      expect(configuration.root_fields).to eq(root_fields)
       expect(configuration.field_name_level).to eq(field_name_level)
       expect(configuration.field_name_time).to eq(field_name_time)
       expect(configuration.field_name_message).to eq(field_name_message)

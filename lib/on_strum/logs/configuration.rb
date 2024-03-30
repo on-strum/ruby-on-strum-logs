@@ -3,11 +3,9 @@
 module OnStrum
   module Logs
     class Configuration
-      INCOMPLETE_CONFIG = 'service_name, service_version are required parameters'
       SETTERS = %i[
         custom_formatter
-        service_name
-        service_version
+        root_fields
         field_name_level
         field_name_time
         field_name_message
@@ -32,19 +30,14 @@ module OnStrum
         end
       end
 
-      def complete?
-        !!(service_name && service_version)
-      end
-
       def formatter
         custom_formatter || builded_formatter
       end
 
-      # TODO: hardcoded fields will be removed in next release
       def log_attributes_order
-        @log_attributes_order ||= OnStrum::Logs::Configuration::SETTERS[3..6].map do |field_name_getter|
+        @log_attributes_order ||= OnStrum::Logs::Configuration::SETTERS[2..5].map do |field_name_getter|
           public_send(field_name_getter)
-        end + %i[service_name service_version]
+        end + root_fields.keys
       end
 
       private
@@ -52,6 +45,7 @@ module OnStrum
       def instance_initializer
         message_key = OnStrum::Logs::Configuration::BUILTIN_FIELDS_DEFAULT_NAMES[2]
         {
+          root_fields: {},
           field_name_level: OnStrum::Logs::Configuration::BUILTIN_FIELDS_DEFAULT_NAMES[0],
           field_name_time: OnStrum::Logs::Configuration::BUILTIN_FIELDS_DEFAULT_NAMES[1],
           field_name_message: message_key,
@@ -64,9 +58,9 @@ module OnStrum
       def valid_argument_type?(method_name, argument)
         argument.is_a?(
           case method_name
-          when :service_name, :service_version then ::String
-          when *OnStrum::Logs::Configuration::SETTERS[3..-1] then ::Symbol
+          when *OnStrum::Logs::Configuration::SETTERS[2..-1] then ::Symbol
           when :custom_formatter then ::Class
+          when :root_fields then ::Hash
           end
         )
       end
