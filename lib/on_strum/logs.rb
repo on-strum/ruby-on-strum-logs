@@ -9,10 +9,7 @@ module OnStrum
         @configuration ||= begin
           return unless block
 
-          configuration = OnStrum::Logs::Configuration.new(&block)
-          raise OnStrum::Logs::Error::Configuration, OnStrum::Logs::Configuration::INCOMPLETE_CONFIG unless configuration.complete?
-
-          configuration
+          OnStrum::Logs::Configuration.new(&block)
         end
       end
 

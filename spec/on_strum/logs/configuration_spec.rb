@@ -2,7 +2,6 @@
 
 RSpec.describe OnStrum::Logs::Configuration do
   describe 'defined constants' do
-    it { expect(described_class).to be_const_defined(:INCOMPLETE_CONFIG) }
     it { expect(described_class).to be_const_defined(:SETTERS) }
     it { expect(described_class).to be_const_defined(:BUILTIN_FIELDS_DEFAULT_NAMES) }
   end
@@ -10,8 +9,7 @@ RSpec.describe OnStrum::Logs::Configuration do
   describe '.new' do
     let(:custom_formatter) { use_formatter(:custom) }
     let(:detailed_formatter) { true }
-    let(:service_name) { random_service_name }
-    let(:service_version) { random_semver }
+    let(:root_fields) { random_root_fields }
     let(:field_name_level) { random_field_name }
     let(:field_name_time) { random_field_name }
     let(:field_name_message) { random_field_name }
@@ -24,8 +22,7 @@ RSpec.describe OnStrum::Logs::Configuration do
         create_configuration(
           custom_formatter: custom_formatter,
           detailed_formatter: detailed_formatter,
-          service_name: service_name,
-          service_version: service_version,
+          root_fields: root_fields,
           field_name_level: field_name_level,
           field_name_time: field_name_time,
           field_name_message: field_name_message,
@@ -38,15 +35,13 @@ RSpec.describe OnStrum::Logs::Configuration do
       it 'creates configuration instance' do
         expect(configuration.custom_formatter).to eq(custom_formatter)
         expect(configuration.detailed_formatter).to eq(detailed_formatter)
-        expect(configuration.service_name).to eq(service_name)
-        expect(configuration.service_version).to eq(service_version)
+        expect(configuration.root_fields).to eq(root_fields)
         expect(configuration.field_name_level).to eq(field_name_level)
         expect(configuration.field_name_time).to eq(field_name_time)
         expect(configuration.field_name_message).to eq(field_name_message)
         expect(configuration.field_name_context).to eq(field_name_context)
         expect(configuration.field_name_exception_message).to eq(field_name_exception_message)
         expect(configuration.field_name_exception_stack_trace).to eq(field_name_exception_stack_trace)
-        expect(configuration).to be_complete
       end
     end
 
@@ -62,49 +57,25 @@ RSpec.describe OnStrum::Logs::Configuration do
 
       let(:invalid_argument) { 42 }
 
-      context 'when argument service_name= invalid' do
-        subject(:configuration) do
-          create_configuration(service_name: invalid_argument, service_version: random_semver)
-        end
+      context 'when argument root_fields= invalid' do
+        subject(:configuration) { create_configuration(root_fields: invalid_argument) }
 
-        let(:expected_error_message) { "#{invalid_argument} is not a valid service_name=" }
-
-        include_examples 'raies argument error'
-      end
-
-      context 'when argument service_version= invalid' do
-        subject(:configuration) do
-          create_configuration(service_name: random_service_name, service_version: invalid_argument)
-        end
-
-        let(:expected_error_message) { "#{invalid_argument} is not a valid service_version=" }
+        let(:expected_error_message) { "#{invalid_argument} is not a valid root_fields=" }
 
         include_examples 'raies argument error'
       end
 
       context 'when argument custom_formatter= invalid' do
-        subject(:configuration) do
-          create_configuration(
-            custom_formatter: invalid_argument,
-            service_name: random_service_name,
-            service_version: random_semver
-          )
-        end
+        subject(:configuration) { create_configuration(custom_formatter: invalid_argument) }
 
         let(:expected_error_message) { "#{invalid_argument} is not a valid custom_formatter=" }
 
         include_examples 'raies argument error'
       end
 
-      OnStrum::Logs::Configuration::SETTERS[3..-1].each do |field_name_setter|
+      OnStrum::Logs::Configuration::SETTERS[2..-1].each do |field_name_setter|
         context "when argument #{field_name_setter}= invalid" do
-          subject(:configuration) do
-            create_configuration(
-              service_name: random_service_name,
-              service_version: random_semver,
-              field_name_setter => invalid_argument
-            )
-          end
+          subject(:configuration) { create_configuration(field_name_setter => invalid_argument) }
 
           let(:expected_error_message) { "#{invalid_argument} is not a valid #{field_name_setter}=" }
 
@@ -117,8 +88,7 @@ RSpec.describe OnStrum::Logs::Configuration do
       subject(:configuration) { create_configuration }
 
       it 'returns incomplete configuration instance' do
-        expect(configuration.service_name).to be_nil
-        expect(configuration.service_version).to be_nil
+        expect(configuration.root_fields).to be_empty
         expect(configuration.custom_formatter).to be_nil
         expect(configuration.field_name_level).to eq(:level)
         expect(configuration.field_name_time).to eq(:time)
@@ -127,36 +97,7 @@ RSpec.describe OnStrum::Logs::Configuration do
         expect(configuration.field_name_exception_message).to eq(:message)
         expect(configuration.field_name_exception_stack_trace).to eq(:stack_trace)
         expect(configuration.detailed_formatter).to be_nil
-        expect(configuration).not_to be_complete
       end
-    end
-  end
-
-  describe '#complete?' do
-    context 'when required attributes missed' do
-      shared_examples 'incomplete configuration' do
-        it { expect(configuration).not_to be_complete }
-      end
-
-      context 'when service_name is nil' do
-        subject(:configuration) { create_configuration }
-
-        it_behaves_like 'incomplete configuration'
-      end
-
-      context 'when service_version is nil' do
-        subject(:configuration) { create_configuration(service_name: random_service_name) }
-
-        it_behaves_like 'incomplete configuration'
-      end
-    end
-
-    context 'when required attributes not missed' do
-      subject(:configuration) do
-        create_configuration(service_name: random_service_name, service_version: random_semver)
-      end
-
-      it { expect(configuration).to be_complete }
     end
   end
 
@@ -201,8 +142,10 @@ RSpec.describe OnStrum::Logs::Configuration do
   describe '#log_attributes_order' do
     subject(:log_attributes_order) { configuration_instance.log_attributes_order }
 
+    let(:root_fields) { random_root_fields }
     let(:configuration_instance) do
       create_configuration(
+        root_fields: root_fields,
         field_name_level: random_field_name,
         field_name_time: random_field_name,
         field_name_message: random_field_name,
@@ -217,8 +160,7 @@ RSpec.describe OnStrum::Logs::Configuration do
           configuration_instance.field_name_time,
           configuration_instance.field_name_message,
           configuration_instance.field_name_context,
-          :service_name,
-          :service_version
+          *root_fields.keys
         ]
       )
     end

@@ -1,4 +1,4 @@
-# `on_strum-logs` - Simple structured logger
+# ![OnStrum::Logs - Simple configurable structured logger with JSON formatter out of the box](https://repository-images.githubusercontent.com/703974267/64869920-5005-490e-9e5d-90b49ba59f25)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/2f4acd0ca4da58ca3b1e/maintainability)](https://codeclimate.com/github/on-strum/ruby-on-strum-logs/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2f4acd0ca4da58ca3b1e/test_coverage)](https://codeclimate.com/github/on-strum/ruby-on-strum-logs/test_coverage)
@@ -73,11 +73,12 @@ To start working with this gem, you must configure it first as in the example be
 require 'on_strum/logs'
 
 OnStrum::Logs.configure do |config|
-  # Required parameter. Current service name.
-  config.service_name = 'My Great Application'
-
-  # Required parameter. Current service version.
-  config.service_version = '1.42.0'
+  # Optional parameter. Ability to define static fields in the logger document root.
+  # It is equal to empty hash by default.
+  config.root_fields = {
+    service_name: 'My Great Application',
+    service_version: '1.42.0'
+  }
 
   # Optional parameter. The colorized structured log in STDOUT. It could be useful
   # for debug mode.
@@ -211,8 +212,10 @@ For view detailed colorized logs you can use configuration option `detailed_form
 require 'on_strum/logs'
 
 OnStrum::Logs.configure do |config|
-  config.service_name = 'My Great Application'
-  config.service_version = '1.42.0'
+  config.root_fields = {
+    service_name: 'My Great Application',
+    service_version: '1.42.0'
+  }
   config.detailed_formatter = true
 end
 

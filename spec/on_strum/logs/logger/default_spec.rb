@@ -36,8 +36,7 @@ RSpec.describe OnStrum::Logs::Logger::Default do
               .with(
                 time: time,
                 level: method_name.to_s.upcase,
-                service_name: current_configuration.service_name,
-                service_version: current_configuration.service_version,
+                **current_configuration.root_fields,
                 **structured_log_data
               )
             logger

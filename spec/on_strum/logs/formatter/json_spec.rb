@@ -15,13 +15,11 @@ RSpec.describe OnStrum::Logs::Formatter::Json do
     let(:time_formatted) { time.strftime(described_class::DATETIME_FORMAT) }
     let(:message) { random_message }
     let(:context) { nil }
-    let(:service_name) { random_service_name }
-    let(:service_version) { random_semver }
+    let(:root_fields) { random_root_fields }
     let(:log_data) do
       [
         [field_name_level, level],
-        [:service_name, service_name],
-        [:service_version, service_version],
+        *root_fields.to_a,
         [field_name_time, time],
         [field_name_message, message],
         [field_name_context, context]
@@ -30,6 +28,7 @@ RSpec.describe OnStrum::Logs::Formatter::Json do
 
     before do
       init_configuration(
+        root_fields: root_fields,
         field_name_level: field_name_level,
         field_name_time: field_name_time,
         field_name_message: field_name_message,
@@ -49,8 +48,7 @@ RSpec.describe OnStrum::Logs::Formatter::Json do
             field_name_time => time_formatted,
             field_name_message => message,
             field_name_context => context,
-            service_name: service_name,
-            service_version: service_version
+            **root_fields
           }.to_json
         )
       )
